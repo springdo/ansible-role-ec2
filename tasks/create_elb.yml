@@ -22,7 +22,7 @@
       region: "{{ ec2_aws_region }}"
       listeners: "{{ elb_listeners }}"
       security_group_ids: "{{ _elb_sg_ids }}"
-      zones: "{{ elb_zones }}"
+      subnets: "{{ elb_subnets | map(attribute='id') | list }}"
     register: elb
 
 -   set_fact:

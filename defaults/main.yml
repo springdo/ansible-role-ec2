@@ -56,6 +56,11 @@ elb_security_groups: # The security groups to apply to the elb
 
 elb_zones:
   - eu-west-1a
+  - eu-west-1b
+
+elb_subnets:
+  - id: subnet-0bf5cb7d
+  - id: subnet-b71737d3
 
 # vpc-eee3b68a
 elb_vpc: vpc-eee3b68a
