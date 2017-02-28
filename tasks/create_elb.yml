@@ -8,7 +8,7 @@
         region: "{{ ec2_aws_region }}"
         rules: "{{ item.value }}"
         rules_egress: "{{ ec2_egress_rules }}"
-        vpc_id: "{{ ec2_vpc_id }}"
+        vpc_id: "{{ elb_vpc }}"
     register: elb_firewall
     with_dict: "{{ elb_security_groups }}"
 
