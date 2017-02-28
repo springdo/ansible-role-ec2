@@ -26,11 +26,23 @@
 -   set_fact:
       _ec2_sg_ids: "{{ ec2_security_groups['results']|map(attribute='group_id')|list }}"
 
+
+-   name: Gather running ec2 facts
+    ec2_remote_facts:
+        region: "{{ ec2_aws_region }}"
+        filters:
+          instance-state-name: running
+          "tag:Name": "{{ ec2_name }}"
+    register: ec2_facts
+
+-   set_fact:
+       _ids_to_delete: "{{ ec2_facts['instances']|map(attribute='id')|list }}"
+
 -   name: Delete an EC2 instance (if exists)
     ec2:
-      state: 'absent'
-      instance_ids: '{{ ec2_res.instance_ids }}'
-      when: ec2_res
+        region: "{{ ec2_aws_region }}"
+        state: 'absent'
+        instance_ids: "{{ _ids_to_delete }}"
 
 -   name: Create an EC2 instance
     ec2:
