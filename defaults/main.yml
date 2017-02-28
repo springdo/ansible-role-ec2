@@ -57,6 +57,9 @@ elb_security_groups: # The security groups to apply to the elb
 elb_zones:
   - eu-west-1a
 
+# vpc-eee3b68a
+elb_vpc: vpc-eee3b68a
+
 
 elb_listeners: # elb listener config
   - protocol: http # options are http, https, ssl, tcp, udp
