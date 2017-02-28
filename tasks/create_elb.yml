@@ -23,6 +23,7 @@
       listeners: "{{ elb_listeners }}"
       security_group_ids: "{{ _elb_sg_ids }}"
       subnets: "{{ elb_subnets | map(attribute='id') | list }}"
+      health_check: "{{ elb_healthcheck }}"
     register: elb
 
 -   set_fact:

@@ -65,6 +65,13 @@ elb_subnets:
 # vpc-eee3b68a
 elb_vpc: vpc-eee3b68a
 
+elb_healthcheck: # elb healthcheck config
+  ping_protocol: tcp
+  ping_port: 22
+  response_timeout: 5 # seconds
+  interval: 30 # seconds
+  unhealthy_threshold: 2
+  healthy_threshold: 10
 
 elb_listeners: # elb listener config
   - protocol: http # options are http, https, ssl, tcp, udp
