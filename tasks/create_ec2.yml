@@ -43,6 +43,7 @@
         region: "{{ ec2_aws_region }}"
         state: 'absent'
         instance_ids: "{{ _ids_to_delete }}"
+    when: _ids_to_delete
 
 -   name: Create an EC2 instance
     ec2:
