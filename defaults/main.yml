@@ -51,7 +51,7 @@ elb_security_groups: # The security groups to apply to the elb
   default_elb_webapp:
     - proto: tcp
       from_port: 80
-      to_port: 8080
+      to_port: 80
       cidr_ip: 0.0.0.0/0
 
 elb_zones:
@@ -76,7 +76,7 @@ elb_healthcheck: # elb healthcheck config
 elb_listeners: # elb listener config
   - protocol: http # options are http, https, ssl, tcp, udp
     load_balancer_port: 80
-    instance_port: 80
+    instance_port: 8080
     proxy_protocol: True
 
 _elb_sg_ids: ''
