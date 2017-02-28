@@ -1,7 +1,7 @@
 ---
 ## ec2 variables
 use_elb: yes
-ec2_name: "{{ app_component_name }}"
+ec2_name: "{{ app_component_name }}-{{ app_namespace }}"
 
 ec2_ami: ami-02ace471 # The AWS AMI id for the base of the ec2 instance
 ec2_exact_count: 1

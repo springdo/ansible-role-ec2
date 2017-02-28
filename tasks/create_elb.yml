@@ -1,5 +1,5 @@
 -   set_fact:
-      elb_name: "{{ app_component_name }}"
+      elb_name: "{{ app_component_name }}-{{ app_namespace }}"
 
 -   name: Create security group for elb
     ec2_group:
