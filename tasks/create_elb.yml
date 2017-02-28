@@ -35,4 +35,4 @@
       ec2_elbs: ["{{ elb_name }}"]
       state: present
     with_items: "{{ _ec2_instance_ids }}"
-    when: "{{use_elb and elb_auto_add_ec2_instances}}"
+    when: "{{use_elb}}"
