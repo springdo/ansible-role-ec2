@@ -12,8 +12,6 @@ This role was designed for Red Hat 7.
 
 ### pre-reqs option 1: use ami
 
-Use the ibm ix ami ibmix-ansible-control-node-v2 to create the ansible control node
-
 Create a ~/.boto file:
 
     [Credentials]
