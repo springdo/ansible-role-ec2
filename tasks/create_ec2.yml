@@ -26,6 +26,12 @@
 -   set_fact:
       _ec2_sg_ids: "{{ ec2_security_groups['results']|map(attribute='group_id')|list }}"
 
+-   name: Delete an EC2 instance (if exists)
+    ec2:
+      state: 'absent'
+      instance_ids: '{{ ec2_res.instance_ids }}'
+      when: ec2_res
+
 -   name: Create an EC2 instance
     ec2:
         key_name: "{{ ec2_key_name }}"
