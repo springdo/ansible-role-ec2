@@ -1,0 +1,38 @@
+-   set_fact:
+      elb_name: "{{ app_component_name }}"
+
+-   name: Create security group for elb
+    ec2_group:
+        name: "{{ app_environment }}-{{ item.key }}-{{ app_namespace }}-elb"
+        description: "security group for {{ item.key }}"
+        region: "{{ ec2_aws_region }}"
+        rules: "{{ item.value }}"
+        rules_egress: "{{ ec2_egress_rules }}"
+        vpc_id: "{{ ec2_vpc_id }}"
+    register: elb_firewall
+    with_dict: "{{ elb_security_groups }}"
+
+-   set_fact:
+      _elb_sg_ids: "{{ elb_firewall['results']|map(attribute='group_id')|list|join(',') }}"
+
+-   ec2_elb_lb:
+      name: "{{ elb_name }}"
+      state: present
+      purge_instance_ids: false
+      region: "{{ ec2_aws_region }}"
+      listeners: "{{ elb_listeners }}"
+      security_group_ids: "{{ _elb_sg_ids }}"
+      subnets: "{{ _public_subnets | map(attribute='id') | list }}"
+    register: elb
+
+-   set_fact:
+      _ec2_instance_ids: "{{ ec2.tagged_instances|map(attribute='id')|list }}"
+
+-   name: Add instance(s) to ELB
+    ec2_elb:
+      instance_id: "{{ item }}"
+      region: "{{ aws_region }}"
+      ec2_elbs: ["{{ elb_name }}"]
+      state: present
+    with_items: "{{ _ec2_instance_ids }}"
+    when: "{{use_elb and elb_auto_add_ec2_instances}}"

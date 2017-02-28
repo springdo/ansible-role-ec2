@@ -1,0 +1,67 @@
+---
+## ec2 variables
+use_elb: yes
+ec2_name: "{{ app_component_name }}"
+
+ec2_ami: ami-02ace471 # The AWS AMI id for the base of the ec2 instance
+ec2_exact_count: 1
+ec2_instance_type: t2.micro
+ec2_aws_region: eu-west-1
+ec2_assign_public_ip: yes
+
+ec2_key_name: 'dbs-digital-jenkins-ansible-key'
+
+ec2_security_groups:
+  webapp:
+    - proto: tcp
+      from_port: 8080
+      to_port: 8080
+      cidr_ip: 0.0.0.0/0
+    - proto: tcp
+      from_port: 80
+      to_port: 80
+      cidr_ip: 0.0.0.0/0
+    - proto: tcp
+      from_port: 443
+      to_port: 443
+      cidr_ip: 0.0.0.0/0
+  ssh:
+    - proto: tcp
+      from_port: 22
+      to_port: 22
+      cidr_ip: 0.0.0.0/0
+
+ec2_egress_rules:
+   - proto: all
+     cidr_ip: 0.0.0.0/0
+
+
+#	vpc-c85206ac => mgmnt
+#   vpc-eee3b68a => Sandbox
+ec2_vpc_id : 'vpc-eee3b68a'
+
+#   subnet-b71737d3 => sandbox DMZ
+#   subnet-4a80a02e => sandbox Application
+#   subnet-b71737d3 => sandbox DMZ public
+ec2_vpc_subnet_id: 'subnet-4a80a02e'
+
+_ec2_sg_ids: ''
+
+elb_security_groups: # The security groups to apply to the elb
+  default_elb_webapp:
+    - proto: tcp
+     from_port: 80
+     to_port: 80
+     cidr_ip: 0.0.0.0/0
+
+elb_zones:
+  - eu-west-1a
+
+
+elb_listeners: # elb listener config
+  - protocol: http # options are http, https, ssl, tcp, udp
+    load_balancer_port: 80
+    instance_port: 80
+    proxy_protocol: True
+
+_elb_sg_ids: ''

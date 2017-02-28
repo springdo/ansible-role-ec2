@@ -1,0 +1,13 @@
+---
+galaxy_info:
+  author: Donal Spring <donal@uk.ibm.com>
+  description: Ansible Role for ec2 instances in aws for dbs.
+  company: IBM
+  min_ansible_version: 2.2
+  platforms:
+    - name: Enterprise Linux
+      versions:
+        - 7
+  galaxy_tags:
+    - system
+dependencies: []

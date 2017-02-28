@@ -1,0 +1,4 @@
+---
+-   include: create_ec2.yml
+-   include: create_elb.yml
+    when: use_elb
